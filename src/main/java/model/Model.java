@@ -2,6 +2,8 @@ package model;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Set;
+import java.util.HashSet;
 
 import com.google.gson.Gson;
 
@@ -9,6 +11,7 @@ import com.google.gson.Gson;
  * A model is consist of states and transitions
  */
 public class Model {
+    private Set<State> initialSet;
     State[] states;
     Transition[] transitions;
 
@@ -18,7 +21,27 @@ public class Model {
         for (Transition t : model.transitions) {
             System.out.println(t);
         }
+        model.generateInitialSet();
         return model;
+    }
+
+    /**
+     * Generates the set of initial states.
+     */
+    private void generateInitialSet() {
+        initialSet = new HashSet<State>();
+
+        for (State state : states) {
+            initialSet.add(state);
+        }
+    }
+
+    /**
+     * Getter for initialSet.
+     * @return initialSet
+     */
+    public Set<State> getInitialSet() {
+        return initialSet;
     }
 
     /**
