@@ -17,7 +17,6 @@ public class Model {
         Model model = gson.fromJson(new FileReader(filePath), Model.class);
         for (Transition t : model.transitions) {
             System.out.println(t);
-            ;
         }
         return model;
     }
