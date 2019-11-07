@@ -4,6 +4,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
@@ -32,7 +35,9 @@ public class Model {
         initialSet = new HashSet<State>();
 
         for (State state : states) {
-            initialSet.add(state);
+            if (state.isInit()) {
+                initialSet.add(state);
+            }
         }
     }
 
@@ -60,6 +65,25 @@ public class Model {
      */
     public Transition[] getTransitions() {
         return transitions;
+    }
+
+    public HashMap<String, List<Transition>> getStateMap() {
+        HashMap<String, List<Transition>> stateMap = new HashMap<>();
+
+        for (State state : states) {
+            List<Transition> list = new ArrayList<Transition>();
+            String name = state.getName();
+
+            for (Transition transition : transitions) {
+                if (transition.getSource().equals(name)) {
+                    list.add(transition);
+                }
+            }
+
+            stateMap.put(name, list);
+        }
+
+        return stateMap;
     }
 
 }

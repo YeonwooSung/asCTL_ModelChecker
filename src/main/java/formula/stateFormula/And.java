@@ -7,6 +7,7 @@ public class And extends StateFormula {
     public And(StateFormula left, StateFormula right) {
         this.left = left;
         this.right = right;
+        this.type = 0;
     }
 
     @Override

@@ -7,6 +7,7 @@ public class Or extends StateFormula {
     public Or(StateFormula left, StateFormula right) {
         this.left = left;
         this.right = right;
+        this.type = 5;
     }
 
     @Override

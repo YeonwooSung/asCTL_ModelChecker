@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="modelChecker.ModelCheckerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-07T15:39:04" hostname="8afbfbbe.st-andrews.ac.uk" time="0.33">
+  <properties/>
+  <testcase name="buildAndCheckModel" classname="modelChecker.ModelCheckerTest" time="0.33"/>
+  <system-out><![CDATA[Hi
+s0-[act1]-s1
+s0-[act2]-s2
+s1-[act2]-s2
+s2-[act2]-s0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

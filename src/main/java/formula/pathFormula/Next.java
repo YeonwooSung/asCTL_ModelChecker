@@ -11,6 +11,7 @@ public class Next extends PathFormula {
     public Next(StateFormula stateFormula, Set<String> actions) {
         this.stateFormula = stateFormula;
         this.actions = actions;
+        this.type = 2;
     }
 
     public Set<String> getActions() {

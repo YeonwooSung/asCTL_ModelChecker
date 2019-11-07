@@ -8,6 +8,7 @@ public class ForAll extends StateFormula {
 
     public ForAll(PathFormula pathFormula) {
         this.pathFormula = pathFormula;
+        this.type = 3;
     }
 
     @Override

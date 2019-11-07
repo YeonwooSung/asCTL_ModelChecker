@@ -7,6 +7,7 @@ public class Not extends StateFormula {
 
     public Not(StateFormula stateFormula) {
         this.stateFormula = stateFormula;
+        this.type = 4;
     }
 
     @Override

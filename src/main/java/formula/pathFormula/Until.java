@@ -16,6 +16,7 @@ public class Until extends PathFormula {
         this.right = right;
         this.leftActions = leftActions;
         this.rightActions = rightActions;
+        this.type = 3;
     }
 
     public Set<String> getLeftActions() {

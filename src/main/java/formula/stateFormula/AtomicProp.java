@@ -5,6 +5,7 @@ public class AtomicProp extends StateFormula {
 
     public AtomicProp(String label) {
         this.label = label;
+        this.type = 1;
     }
 
     @Override

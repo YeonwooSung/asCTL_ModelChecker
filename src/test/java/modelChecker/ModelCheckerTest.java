@@ -22,6 +22,7 @@ public class ModelCheckerTest {
      */
     @Test
     public void buildAndCheckModel() {
+        System.out.println("Hi");
         try {
             Model model = Model.parseModel("src/test/resources/model1.json");
 
@@ -29,6 +30,7 @@ public class ModelCheckerTest {
             StateFormula query = new FormulaParser("src/test/resources/ctl1.json").parse();
 
             ModelChecker mc = new SimpleModelChecker();
+            mc.check(model, fairnessConstraint, query);
 
             // TO IMPLEMENT
             // assertTrue(mc.check(model, fairnessConstraint, query));

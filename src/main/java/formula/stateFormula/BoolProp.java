@@ -5,6 +5,7 @@ public class BoolProp extends StateFormula {
 
     public BoolProp(boolean value) {
         this.value = value;
+        this.type = 2;
     }
 
     @Override
