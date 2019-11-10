@@ -5,6 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import formula.pathFormula.PathFormula;
+import formula.pathFormula.Always;
+import formula.pathFormula.Eventually;
+import formula.pathFormula.Next;
+import formula.pathFormula.Until;
 import formula.stateFormula.And;
 import formula.stateFormula.Or;
 import formula.stateFormula.AtomicProp;
@@ -37,14 +42,65 @@ public class SATChecker {
         } else if (formula instanceof Not) {
             return getSatNot((Not) formula, states);
         } else if (formula instanceof ThereExists) {
-            //TODO
-            return states;
+            return getSatThereExists((ThereExists) formula, states);
         } else if (formula instanceof ForAll) {
             //TODO
             return states;
         }
 
         return null;
+    }
+
+    private Set<State> getSatThereExists(ThereExists formula, Set<State> states) {
+        PathFormula pathFormula = formula.pathFormula;
+
+        // use "instanceof" to check the type of PathFormula instance
+        if (pathFormula instanceof Next) {
+            return getSatExistsNext(formula, states);
+        } else if (pathFormula instanceof Until) {
+            return getSatExistsUntil(formula, states);
+        } else if (pathFormula instanceof Always) {
+            return getSatExistsAlways(formula, states);
+        } else if (pathFormula instanceof Eventually) {
+            return getSatExistsEventually(formula, states);
+        }
+
+        return null;
+    }
+
+    private Set<State> getSatExistsNext(ThereExists formula, Set<State> states) {
+        PathFormula pathFormula = formula.pathFormula;
+
+        // check if the pathFormula is an instace of Until class
+        if (!(pathFormula instanceof Until)) {
+            return getSatThereExists(formula, states);
+        }
+
+        StateFormula left = ((Until) pathFormula).left;
+        StateFormula right = ((Until) pathFormula).right;
+        Set<State> leftStates = getSat(left, states);
+        Set<State> rightStates = getSat(right, states);
+
+        //TODO
+        return states;
+    }
+
+    private Set<State> getSatExistsUntil(ThereExists formula, Set<State> states) {
+        PathFormula pathFormula = formula.pathFormula;
+        //TODO
+        return states;
+    }
+
+    private Set<State> getSatExistsAlways(ThereExists formula, Set<State> states) {
+        PathFormula pathFormula = formula.pathFormula;
+        //TODO
+        return states;
+    }
+
+    private Set<State> getSatExistsEventually(ThereExists formula, Set<State> states) {
+        PathFormula pathFormula = formula.pathFormula;
+        //TODO
+        return states;
     }
 
     /**
