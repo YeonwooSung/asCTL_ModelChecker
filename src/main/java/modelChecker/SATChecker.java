@@ -68,37 +68,49 @@ public class SATChecker {
         return null;
     }
 
-    private Set<State> getSatExistsNext(ThereExists formula, Set<State> states) {
+    private Set<State> getSatExistsUntil(ThereExists formula, Set<State> states) {
         PathFormula pathFormula = formula.pathFormula;
 
         // check if the pathFormula is an instace of Until class
-        if (!(pathFormula instanceof Until)) {
-            return getSatThereExists(formula, states);
-        }
+        if (!(pathFormula instanceof Until)) return getSatThereExists(formula, states);
 
         StateFormula left = ((Until) pathFormula).left;
         StateFormula right = ((Until) pathFormula).right;
         Set<State> leftStates = getSat(left, states);
         Set<State> rightStates = getSat(right, states);
+        Set<String> rightActions = ((Until) pathFormula).getRightActions();
+        Set<String> leftActions = ((Until) pathFormula).getLeftActions();
 
         //TODO
         return states;
     }
 
-    private Set<State> getSatExistsUntil(ThereExists formula, Set<State> states) {
+    private Set<State> getSatExistsNext(ThereExists formula, Set<State> states) {
         PathFormula pathFormula = formula.pathFormula;
+
+        // check if the pathFormula is an instace of Next class
+        if (!(pathFormula instanceof Next)) return getSatThereExists(formula, states);
+
         //TODO
         return states;
     }
 
     private Set<State> getSatExistsAlways(ThereExists formula, Set<State> states) {
         PathFormula pathFormula = formula.pathFormula;
+
+        // check if the pathFormula is an instace of Always class
+        if (!(pathFormula instanceof Always)) return getSatThereExists(formula, states);
+
         //TODO
         return states;
     }
 
     private Set<State> getSatExistsEventually(ThereExists formula, Set<State> states) {
         PathFormula pathFormula = formula.pathFormula;
+
+        // check if the pathFormula is an instace of Eventually class
+        if (!(pathFormula instanceof Eventually)) return getSatThereExists(formula, states);
+
         //TODO
         return states;
     }
@@ -110,7 +122,7 @@ public class SATChecker {
      * @return Set of states that are passed the satisfaction check
      */
     private Set<State> getSatBool(BoolProp formula, Set<State> states) {
-        return states; //TODO
+        return states;
     }
 
     /**
