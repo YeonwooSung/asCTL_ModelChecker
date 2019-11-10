@@ -52,8 +52,8 @@ public class ENFConverter {
 
     /**
      * ENF for Exists: 
-     * Exists(P U Q) = Exists(ENF(P) U ENF(Q)) 
-     * Exists(Next(P)) = Exists(Next(ENF(P))) 
+     * Exists(P U Q) = Exists(ENF(P) U ENF(Q))
+     * Exists(Next(P)) = Exists(Next(ENF(P)))
      * Exists(Always(P)) = Exists(Always(ENF(P)))
      * Exists(Eventually(P)) = Exists(true U ENF(P))
      * 
@@ -63,6 +63,8 @@ public class ENFConverter {
     private StateFormula convertToENF(ThereExists formula) {
         // use "instanceof" to check the type of instance of the path formula
         if (formula.pathFormula instanceof Until) {
+            // Exists(P U Q) = Exists(ENF(P) U ENF(Q))
+
             Until originalUntil = (Until) formula.pathFormula;
             StateFormula newLeft = convertToENF(originalUntil.left);
             StateFormula newRigth = convertToENF(originalUntil.right);
@@ -71,14 +73,20 @@ public class ENFConverter {
             return new ThereExists(newUntil);
 
         } else if (formula.pathFormula instanceof Next) {
+            // Exists(Next(P)) = Exists(Next(ENF(P)))
+
             Next originalNext = (Next) formula.pathFormula;
             return new ThereExists(new Next(convertToENF(originalNext.stateFormula), originalNext.getActions()));
 
         } else if (formula.pathFormula instanceof Always) {
+            // Exists(Always(P)) = Exists(Always(ENF(P)))
+
             Always originalAlways = (Always) formula.pathFormula;
             return new ThereExists(new Always(convertToENF(originalAlways.stateFormula), originalAlways.getActions()));
 
         } else if (formula.pathFormula instanceof Eventually) {
+            // Exists(Eventually(P)) = Exists(true U ENF(P))
+
             Eventually originalEventually = (Eventually) formula.pathFormula;
             Until until = new Until(new BoolProp(true), convertToENF(originalEventually.stateFormula), originalEventually.getLeftActions(), originalEventually.getRightActions());
 
@@ -100,6 +108,8 @@ public class ENFConverter {
     private StateFormula convertToENF(ForAll formula) {
 
         if (formula.pathFormula instanceof Until) {
+            // ForAll(P U Q) = (not(Exists(not(ENF(Q)) U (not(ENF(P)) and not(ENF(Q))))) and (not(Exists(Always(not(ENF(Q))))))
+
             Until originalUntil = (Until) formula.pathFormula;
 
             StateFormula enfL = convertToENF(originalUntil.left);
@@ -125,16 +135,22 @@ public class ENFConverter {
             return new And(leftAnd, rightAnd);
 
         } else if (formula.pathFormula instanceof Next) {
+            // ForAll(Next(P)) = not(Exists(Next(not(ENF(P)))))
+
             Next originalNext = (Next) formula.pathFormula;
             Next newNext = new Next(new Not(convertToENF(originalNext.stateFormula)), originalNext.getActions());
             return new Not(new ThereExists(newNext));
 
         } else if (formula.pathFormula instanceof Always) {
+            // ForAll(Always(P)) = not(Exists(true U ENF(P)))
+
             Always originalAlways = (Always) formula.pathFormula;
             Until newUntil = new Until(new BoolProp(true), new Not(convertToENF(originalAlways.stateFormula)), new HashSet<String>(), originalAlways.getActions());
             return new Not(new ThereExists(newUntil));
 
         } else if (formula.pathFormula instanceof Eventually) {
+            // ForAll(Eventually(P)) = not(Exists(Always(not(ENF(P)))))
+
             Eventually originalEventually = (Eventually) formula.pathFormula;
             Always newAlways = new Always(new Not(convertToENF(originalEventually.stateFormula)), originalEventually.getRightActions());
             return new Not(new ThereExists(newAlways));
