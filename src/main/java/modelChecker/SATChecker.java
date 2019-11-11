@@ -31,6 +31,7 @@ public class SATChecker {
 
     public Set<State> getSat(StateFormula formula, Set<State> states) {
         // Use "instanceof" to check the type of StateFormula instance
+        System.out.println(states);
         if (formula instanceof BoolProp) {
             return getSatBool((BoolProp) formula, states);
         } else if (formula instanceof AtomicProp) {
@@ -45,7 +46,38 @@ public class SATChecker {
             return getSatThereExists((ThereExists) formula, states);
         } else if (formula instanceof ForAll) {
             //TODO
-            return states;
+            return getSatForAll((ForAll) formula, states);
+        }
+
+        return null;
+    }
+
+    private Set<State> getSatForAll(ForAll formula, Set<State> states) {
+        PathFormula pathFormula = formula.pathFormula;
+
+        // Get all the state sets.
+        if (pathFormula instanceof Next) {
+            // Check if the formula satisfies every 2nd state.
+            return getSatForAllNext((Next) pathFormula, states);
+
+        } else if (pathFormula instanceof Until) {
+            // return getSatExistsUntil(formula, states);
+        } else if (pathFormula instanceof Always) {
+            // return getSatExistsAlways(formula, states);
+        } else if (pathFormula instanceof Eventually) {
+            // return getSatExistsEventually(formula, states);
+        }
+        return null;
+    }
+
+    private Set<State> getSatForAllNext(Next formula, Set<State> states) {
+        for (State state: states){
+            // String stateName = state.getName();
+            Set<Transition> transitions = findTransitionsBySource(state);
+            for (Transition transition: transitions){
+
+                String[] actions = transition.getActions();
+            }
         }
 
         return null;
