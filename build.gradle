@@ -21,7 +21,7 @@ configurations {
 }
 
 jacoco {
-  toolVersion = '0.8.4'
+  toolVersion = '0.7.5.201505241946'
 }
 
 tasks.withType(JavaCompile) {
@@ -49,8 +49,8 @@ jacocoTestReport {
   reports {
 	xml.enabled true
 	csv.enabled false
-	html.destination file("${reporting.baseDir}/test/coverage")
-	xml.destination file("${reporting.baseDir}/test/coverage/jacocoTestReport.xml")
+	html.destination "${reporting.baseDir}/test/coverage"
+	xml.destination "${reporting.baseDir}/test/coverage/jacocoTestReport.xml"
   }
 }
 
@@ -61,8 +61,8 @@ task jacocoIntegrationTestReport(type: org.gradle.testing.jacoco.tasks.JacocoRep
   reports {
 	xml.enabled true
 	csv.enabled false
-	html.destination file("${reporting.baseDir}/integrationTest/coverage")
-	xml.destination file("${reporting.baseDir}/integrationTest/coverage/jacocoTestReport.xml")
+	html.destination "${reporting.baseDir}/integrationTest/coverage"
+	xml.destination "${reporting.baseDir}/integrationTest/coverage/jacocoTestReport.xml"
   }
 }
 
