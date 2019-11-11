@@ -22,7 +22,6 @@ public class ModelCheckerTest {
      */
     @Test
     public void buildAndCheckModel() {
-        System.out.println("Hi");
         try {
             Model model = Model.parseModel("src/test/resources/model1.json");
 
