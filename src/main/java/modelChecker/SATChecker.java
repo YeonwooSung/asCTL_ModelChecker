@@ -81,6 +81,16 @@ public class SATChecker {
         Set<String> rightActions = ((Until) pathFormula).getRightActions();
         Set<String> leftActions = ((Until) pathFormula).getLeftActions();
 
+        // check if the set of right actions of the until formula is empty
+        if (!rightActions.isEmpty()) {
+            //TODO
+        }
+
+        // check if the set of left actions of the until formula is empty
+        if(!leftActions.isEmpty()) {
+            //TODO
+        }
+
         //TODO
         return states;
     }
@@ -91,18 +101,79 @@ public class SATChecker {
         // check if the pathFormula is an instace of Next class
         if (!(pathFormula instanceof Next)) return getSatThereExists(formula, states);
 
-        //TODO
+        StateFormula stateFormula = ((Next) pathFormula).stateFormula;
+        Set<State> fStates = getSat(stateFormula, states); //gets the set of states that satisfy the given formula
+        Set<String> actions = ((Next)pathFormula).getActions();
+
+        // check if the
+        if (!actions.isEmpty()) {
+            //TODO
+        }
+
+        Set<State> newSetOfStates = new HashSet<>();
+
+        // use for loop to iterate states in the set
+        for(State state : states){
+            Set<State> nextStates = getSetOfNextStates(state, states);
+            nextStates.retainAll(fStates);
+
+            if (!nextStates.isEmpty()) newSetOfStates.add(state);
+        }
+
         return states;
     }
 
+    private Set<State> getSetOfNextStates(State state, Set<State> states) {
+        // get the set of names of next states
+        Set<String> nextStates_str = Arrays.asList(model.getTransitions()).stream().filter(x -> x.getSource().equals(state.getName())).map(x -> x.getTarget()).collect(Collectors.toSet());
+        // get the set of next states
+        Set<State> nextStates = states.stream().filter(x -> nextStates_str.contains(x.getName())).collect(Collectors.toSet());
+        return nextStates;
+    }
+
+    /**
+     * Compute the Exists Always formula for the satisfaction checking.
+     * @param formula
+     * @param states
+     * @return
+     */
     private Set<State> getSatExistsAlways(ThereExists formula, Set<State> states) {
         PathFormula pathFormula = formula.pathFormula;
 
         // check if the pathFormula is an instace of Always class
         if (!(pathFormula instanceof Always)) return getSatThereExists(formula, states);
 
-        //TODO
-        return states;
+        StateFormula stateFormula = ((Always) pathFormula).stateFormula;
+        Set<State> fStates = getSat(stateFormula, states); // gets the set of states that satisfy the given formula
+        Set<String> actions = ((Always) pathFormula).getActions();
+
+        if (!actions.isEmpty()) {
+            //TODO
+        }
+
+        Set<State> newSetOfStates = new HashSet<>(fStates);
+
+        // use an infinite loop to check all states of all paths
+        while (true) {
+            Set<State> s = new HashSet<>(newSetOfStates);
+            Set<State> statesToRemove = new HashSet<>();
+
+            // use for loop to iterate the states in the set
+            for (State state : s) {
+                Set<State> nextStates = getSetOfNextStates(state, states);
+                nextStates.retainAll(newSetOfStates); //retain the states that satisfy the state formula
+
+                // check if all next states do not satisfy the given state formula
+                if (nextStates.isEmpty()) statesToRemove.add(state);
+            }
+
+            // check if there is no more states to remove from the set
+            if (statesToRemove.size() == 0) break;
+
+            newSetOfStates.removeAll(statesToRemove);
+        }
+
+        return newSetOfStates;
     }
 
     private Set<State> getSatExistsEventually(ThereExists formula, Set<State> states) {
@@ -110,6 +181,19 @@ public class SATChecker {
 
         // check if the pathFormula is an instace of Eventually class
         if (!(pathFormula instanceof Eventually)) return getSatThereExists(formula, states);
+
+        StateFormula stateFormula = ((Eventually) pathFormula).stateFormula;
+        Set<State> fStates = getSat(stateFormula, states); // gets the set of states that satisfy the given formula
+
+        // check if set of left actions is empty
+        if (!((Eventually) pathFormula).getLeftActions().isEmpty()) {
+            //TODO
+        }
+
+        // check if set of right actions is empty
+        if (!((Eventually) pathFormula).getRightActions().isEmpty()) {
+            // TODO
+        }
 
         //TODO
         return states;
