@@ -46,10 +46,11 @@ public class SATChecker {
             return getSatThereExists((ThereExists) formula, states);
         } else if (formula instanceof ForAll) {
             //TODO
+            // System.out.println("HERE");
             return getSatForAll((ForAll) formula, states);
         }
 
-        return null;
+        return new HashSet<>();
     }
 
     private Set<State> getSatForAll(ForAll formula, Set<State> states) {
@@ -62,25 +63,39 @@ public class SATChecker {
 
         } else if (pathFormula instanceof Until) {
             // return getSatExistsUntil(formula, states);
+            return getSatForAllUntil((Until) pathFormula, states);
         } else if (pathFormula instanceof Always) {
-            // return getSatExistsAlways(formula, states);
+            return getSatForAllAlways((Always) pathFormula, states);
         } else if (pathFormula instanceof Eventually) {
-            // return getSatExistsEventually(formula, states);
+            return getSatForAllEventually((Eventually) pathFormula, states);
         }
-        return null;
+        return new HashSet<>();
     }
 
     private Set<State> getSatForAllNext(Next formula, Set<State> states) {
+        Set<State> satistfiableStates = new HashSet<>();
+        Set<String> actions = formula.getActions();
         for (State state: states){
             // String stateName = state.getName();
             Set<Transition> transitions = findTransitionsBySource(state);
             for (Transition transition: transitions){
-
-                String[] actions = transition.getActions();
+                String[] transitionActions = transition.getActions();
             }
         }
 
-        return null;
+        return new HashSet<>();
+    }
+
+    private Set<State> getSatForAllUntil(Until formula, Set<State> states) {
+        return new HashSet<>();
+    }
+
+    private Set<State> getSatForAllAlways(Always formula, Set<State> states) {
+        return new HashSet<>();
+    }
+
+    private Set<State> getSatForAllEventually(Eventually formula, Set<State> states) {
+        return new HashSet<>();
     }
 
     private Set<State> getSatThereExists(ThereExists formula, Set<State> states) {
@@ -97,7 +112,7 @@ public class SATChecker {
             return getSatExistsEventually(formula, states);
         }
 
-        return null;
+        return new HashSet<>();
     }
 
     private Set<State> getSatExistsUntil(ThereExists formula, Set<State> states) {
@@ -282,9 +297,12 @@ public class SATChecker {
         Set<State> left = getSat(formula.left, states);
         Set<State> right = getSat(formula.right, states);
 
+        System.out.println("Left size " + left.size() + " " + " Right size " + right.size());
         // Use the stream filter to get states that are contained in both left and right sets
-        Set<State> newStates = left.stream().filter(right::contains).collect(Collectors.toSet());
-        return newStates;
+        // Set<State> newStates = left.stream().filter(right::contains).collect(Collectors.toSet());
+        left.retainAll(right);
+        // right
+        return left;
     }
 
     /**

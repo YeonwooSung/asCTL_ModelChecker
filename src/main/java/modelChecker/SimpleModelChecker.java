@@ -29,7 +29,11 @@ public class SimpleModelChecker implements ModelChecker {
 
         // Check at every step if the constraint is satisfied, and if it is not, the check returns as false.
 
-        HashMap<String, List<Transition>> stateMap = model.getStateMap();
+        // HashMap<String, List<Transition>> stateMap = model.getStateMap();
+
+        for (State state: startingStates){
+            System.out.println(state.getName());
+        }
 
 
         // for (State state: startingStates){
@@ -46,6 +50,7 @@ public class SimpleModelChecker implements ModelChecker {
         Set<State> startingStates_cloned = new HashSet<State>(startingStates);
         Set<State> sat = satChecker.getSat(formulae, startingStates_cloned);
 
+        // boolean result = true;
         // Check if satisfaction set contains all initial states to do the Model Checking for CTL
         boolean result = sat.containsAll(startingStates);
 
