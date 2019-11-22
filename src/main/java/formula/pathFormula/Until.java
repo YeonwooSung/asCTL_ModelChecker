@@ -16,7 +16,6 @@ public class Until extends PathFormula {
         this.right = right;
         this.leftActions = leftActions;
         this.rightActions = rightActions;
-        this.type = 3;
     }
 
     public Set<String> getLeftActions() {
@@ -25,6 +24,14 @@ public class Until extends PathFormula {
 
     public Set<String> getRightActions() {
         return rightActions;
+    }
+
+    public boolean leftIsEmpty() {
+        return leftActions.isEmpty();
+    }
+
+    public boolean rightIsEmpty() {
+        return rightActions.isEmpty();
     }
 
     @Override

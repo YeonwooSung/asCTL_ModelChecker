@@ -8,7 +8,6 @@ public class ThereExists extends StateFormula {
 
     public ThereExists(PathFormula pathFormula) {
         this.pathFormula = pathFormula;
-        this.type = 6;
     }
 
     @Override

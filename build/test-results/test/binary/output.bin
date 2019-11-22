@@ -1,8 +1,20 @@
-Hi
-s0-[act1]-s1
-s0-[act2]-s2
-s1-[act2]-s2
-s2-[act2]-s0
-s2-s0
-s0-s1
-s0-s2
+^The model trivially satisfies the formula as there are no states that satisfy the constraint.
+^The model trivially satisfies the formula as there are no states that satisfy the constraint.
+;The model does not satisfy the query given the constraint.
+Path Trace:
+s0->s3->s4->s7->s1->s2->s6->s3
+4The model satisfies the query given the constraint.
+^The model trivially satisfies the formula as there are no states that satisfy the constraint.
+;The model does not satisfy the query given the constraint.
+Path Trace:
+s2->s0->s2
+^The model trivially satisfies the formula as there are no states that satisfy the constraint.
+	4The model satisfies the query given the constraint.
+
+4The model satisfies the query given the constraint.
+^The model trivially satisfies the formula as there are no states that satisfy the constraint.
+;The model does not satisfy the query given the constraint.
+Path Trace:
+s0->s1->s2->s0
+^The model trivially satisfies the formula as there are no states that satisfy the constraint.
+4The model satisfies the query given the constraint.

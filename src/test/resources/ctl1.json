@@ -1,7 +1,7 @@
 {
-	"formula": "AzFb(g && AG( A ( TRUE cUd EF ( p || q ) ) ))",
+	"formula": "AzFb(TRUE && AG( A ( TRUE cUd EF ( p || q ) ) ))",
 	"b": ["act1", "act2"],
-	"z": ["act3", "act4"],
+	"z": ["act1", "act2"],
 	"c": ["act1", "act2"],
-	"d": ["act3", "act4"]
+	"d": ["act1", "act2"]
 }

@@ -14,7 +14,6 @@ public class Eventually extends PathFormula {
         this.stateFormula = stateFormula;
         this.leftActions = leftActions;
         this.rightActions = rightActions;
-        this.type = 1;
     }
 
     public Set<String> getLeftActions() {
@@ -25,11 +24,18 @@ public class Eventually extends PathFormula {
         return rightActions;
     }
 
+    public boolean leftIsEmpty() {
+        return leftActions.isEmpty();
+    }
+
+    public boolean rightIsEmpty() {
+        return rightActions.isEmpty();
+    }
+
     @Override
     public void writeToBuffer(StringBuilder buffer) {
         buffer.append(FormulaParser.EVENTUALLY_TOKEN);
         stateFormula.writeToBuffer(buffer);
-        ;
     }
 
 }

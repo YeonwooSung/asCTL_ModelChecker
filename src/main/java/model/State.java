@@ -31,5 +31,10 @@ public class State {
     public String[] getLabel() {
 	return label;
     }
+
+    @Override
+    public String toString() {
+        return name ;
+    }
 	
 }

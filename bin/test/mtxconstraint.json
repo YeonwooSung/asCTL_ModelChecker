@@ -1,0 +1,5 @@
+{
+	"formula": "EaFb (wait1 && wait2)",
+    "a": ["act1", "act2"],
+    "b": ["act3"]
+}

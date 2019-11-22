@@ -1,0 +1,5 @@
+{
+	"formula": "EcFb ( wait1 || wait2 )",
+	"c": ["act1"],
+	"b": ["act1", "act3"]
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="formula.StateFormulaTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2019-11-22T17:37:23" hostname="8afbfc98.st-andrews.ac.uk" time="0.041">
+  <properties/>
+  <testcase name="testforAll" classname="formula.StateFormulaTest" time="0.004"/>
+  <testcase name="testBoolProp" classname="formula.StateFormulaTest" time="0.003"/>
+  <testcase name="testAND" classname="formula.StateFormulaTest" time="0.002"/>
+  <testcase name="testNOT" classname="formula.StateFormulaTest" time="0.003"/>
+  <testcase name="testUntil" classname="formula.StateFormulaTest" time="0.003"/>
+  <testcase name="testNext" classname="formula.StateFormulaTest" time="0.004"/>
+  <testcase name="testOR" classname="formula.StateFormulaTest" time="0.005"/>
+  <testcase name="testEventually" classname="formula.StateFormulaTest" time="0.003"/>
+  <testcase name="testAlways" classname="formula.StateFormulaTest" time="0.002"/>
+  <testcase name="testAtomic" classname="formula.StateFormulaTest" time="0.003"/>
+  <testcase name="testExists" classname="formula.StateFormulaTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

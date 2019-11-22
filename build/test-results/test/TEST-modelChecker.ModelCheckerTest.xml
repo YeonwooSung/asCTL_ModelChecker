@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="modelChecker.ModelCheckerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-11T20:26:04" hostname="DESKTOP-ULC1OGV" time="0.157">
+<testsuite name="modelChecker.ModelCheckerTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2019-11-22T17:37:23" hostname="8afbfc98.st-andrews.ac.uk" time="0.335">
   <properties/>
-  <testcase name="buildAndCheckModel" classname="modelChecker.ModelCheckerTest" time="0.157"/>
-  <system-out><![CDATA[Hi
-s0-[act1]-s1
-s0-[act2]-s2
-s1-[act2]-s2
-s2-[act2]-s0
-s2-s0
-s0-s1
-s0-s2
+  <testcase name="buildAndChecKMutexModel1" classname="modelChecker.ModelCheckerTest" time="0.185"/>
+  <testcase name="buildAndChecKMutexModel2" classname="modelChecker.ModelCheckerTest" time="0.012"/>
+  <testcase name="buildAndChecKMutexModel3" classname="modelChecker.ModelCheckerTest" time="0.016"/>
+  <testcase name="buildAndCheckModelWithENF1" classname="modelChecker.ModelCheckerTest" time="0.014"/>
+  <testcase name="buildAndCheckModelWithENF2" classname="modelChecker.ModelCheckerTest" time="0.012"/>
+  <testcase name="buildAndCheckModelWithENF3" classname="modelChecker.ModelCheckerTest" time="0.013"/>
+  <testcase name="buildAndCheckModelWithENF4" classname="modelChecker.ModelCheckerTest" time="0.024"/>
+  <testcase name="buildAndCheckModelWithENF5" classname="modelChecker.ModelCheckerTest" time="0.011"/>
+  <testcase name="buildAndCheckModel" classname="modelChecker.ModelCheckerTest" time="0.009"/>
+  <testcase name="buildAndCheckModel2" classname="modelChecker.ModelCheckerTest" time="0.009"/>
+  <testcase name="buildAndCheckModel3" classname="modelChecker.ModelCheckerTest" time="0.009"/>
+  <testcase name="buildAndCheckModel4" classname="modelChecker.ModelCheckerTest" time="0.008"/>
+  <testcase name="buildAndCheckModel5" classname="modelChecker.ModelCheckerTest" time="0.007"/>
+  <system-out><![CDATA[The model trivially satisfies the formula as there are no states that satisfy the constraint.
+The model trivially satisfies the formula as there are no states that satisfy the constraint.
+The model does not satisfy the query given the constraint.
+Path Trace:
+s0->s3->s4->s7->s1->s2->s6->s3
+The model satisfies the query given the constraint.
+The model trivially satisfies the formula as there are no states that satisfy the constraint.
+The model does not satisfy the query given the constraint.
+Path Trace:
+s2->s0->s2
+The model trivially satisfies the formula as there are no states that satisfy the constraint.
+The model satisfies the query given the constraint.
+The model satisfies the query given the constraint.
+The model trivially satisfies the formula as there are no states that satisfy the constraint.
+The model does not satisfy the query given the constraint.
+Path Trace:
+s0->s1->s2->s0
+The model trivially satisfies the formula as there are no states that satisfy the constraint.
+The model satisfies the query given the constraint.
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

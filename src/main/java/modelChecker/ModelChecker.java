@@ -1,7 +1,10 @@
 package modelChecker;
 
 import formula.stateFormula.StateFormula;
+import java.util.Set;
+
 import model.Model;
+import model.State;
 
 /**
  * Defines the interface to model checker.
@@ -25,5 +28,5 @@ public interface ModelChecker {
     public boolean check(Model model, StateFormula constraint, StateFormula query);
 
     // Returns a trace of the previous check attempt if it failed.
-    public String[] getTrace();
+    public String[] getTrace(Model model, SATChecker checker, Set<State> sat, StateFormula formula);
 }

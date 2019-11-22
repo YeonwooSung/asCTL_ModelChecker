@@ -1,8 +1,6 @@
 package formula.stateFormula;
 
 public abstract class StateFormula {
-
-    protected int type;
     public abstract void writeToBuffer(StringBuilder buffer);
 
     @Override
@@ -10,9 +8,5 @@ public abstract class StateFormula {
         StringBuilder buffer = new StringBuilder();
         writeToBuffer(buffer);
         return buffer.toString();
-    }
-
-    public int getType() {
-        return type;
     }
 }

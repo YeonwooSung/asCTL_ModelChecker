@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+// import java.util.List;
+// import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
@@ -15,16 +15,18 @@ import com.google.gson.Gson;
  */
 public class Model {
     private Set<State> initialSet;
+    private Set<State> statesSet;
+    private HashMap<String, State> stateMap;
+    private HashMap<String, Set<Transition>> targetMap;
+    private HashMap<String, Set<Transition>> transitionMap;
     State[] states;
     Transition[] transitions;
 
     public static Model parseModel(String filePath) throws IOException {
         Gson gson = new Gson();
         Model model = gson.fromJson(new FileReader(filePath), Model.class);
-        for (Transition t : model.transitions) {
-            System.out.println(t);
-        }
         model.generateInitialSet();
+        model.generateStateMap();
         return model;
     }
 
@@ -33,20 +35,65 @@ public class Model {
      */
     private void generateInitialSet() {
         initialSet = new HashSet<State>();
+        statesSet = new HashSet<State>();
 
         for (State state : states) {
+            statesSet.add(state);
+
             if (state.isInit()) {
                 initialSet.add(state);
             }
         }
     }
 
+    private void generateStateMap() {
+        stateMap = new HashMap<>();
+        targetMap = new HashMap<>();
+        transitionMap = new HashMap<>();
+
+        for (State state : states) {
+            Set<Transition> list = new HashSet<>();
+            String name = state.getName();
+
+            for (Transition transition : transitions) {
+                if (transition.getSource().equals(name)) {
+                    list.add(transition);
+                }
+
+                String target = transition.getTarget();
+                if (!targetMap.containsKey(target)) {
+                    // Initialize the new set
+                    Set<Transition> newSet = new HashSet<Transition>();
+                    newSet.add(transition);
+                    targetMap.put(target, newSet);
+
+                } else {
+                    // Populate the target set.
+                    targetMap.get(target).add(transition);
+                }
+            }
+
+            stateMap.put(name, state);
+            transitionMap.put(name, list);
+        }
+    }
+
     /**
      * Getter for initialSet.
+     * 
      * @return initialSet
      */
     public Set<State> getInitialSet() {
         return initialSet;
+    }
+
+    /**
+     * Getter for statesSet.
+     * 
+     * @return statesSet
+     */
+    public Set<State> getStatesSet() {
+        return statesSet;
     }
 
     /**
@@ -67,23 +114,35 @@ public class Model {
         return transitions;
     }
 
-    public HashMap<String, List<Transition>> getStateMap() {
-        HashMap<String, List<Transition>> stateMap = new HashMap<>();
-
-        for (State state : states) {
-            List<Transition> list = new ArrayList<Transition>();
-            String name = state.getName();
-
-            for (Transition transition : transitions) {
-                if (transition.getSource().equals(name)) {
-                    list.add(transition);
-                }
-            }
-
-            stateMap.put(name, list);
-        }
-
+    public HashMap<String, State> getStateMap() {
         return stateMap;
+    }
+
+    public HashMap<String, Set<Transition>> getTransitionMap() {
+        return transitionMap;
+    }
+
+    public HashMap<String, Set<Transition>> getTargetMap() {
+        return targetMap;
+    }
+
+    public State getState(String name) {
+        return stateMap.get(name);
+    }
+
+    /**
+     * Gets the set of transitions whose target state is equal to the given state.
+     * @param state - target state
+     * @return May return null if the state is an initial state without any connecting transitions.
+     */
+    public Set<Transition> getTargetTransition(String name) {
+        Set<Transition> transitions = targetMap.get(name);
+        
+        return (transitions != null)? transitions: new HashSet<>();
+    }
+
+    public Set<Transition> getTransition(String name) {
+        return transitionMap.get(name);
     }
 
 }
